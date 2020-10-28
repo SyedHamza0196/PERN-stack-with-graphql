@@ -4,15 +4,25 @@
 // console.log("log just to push again")
 
 // const devConfig = {
-//   user: process.env.PG_USER,
-//   password: process.env.PG_PASSWORD,
-//   host: process.env.PG_HOST,
-//   database: process.env.PG_DATABASE,
-//   port: process.env.PG_PORT
+//   user: "postgres",
+//   password: "123456789aA_",
+//   host: "localhost",
+//   database: "gql_library",
+//   port: 5432
 // }
+
+// const pool = new Pool({
+//   user: "postgres",
+//   password: "123456789aA_",
+//   host: "localhost",
+//   database: "gql_library",
+//   port: 5432
+// })
 
 // another way of doing it
 // const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
+
+// const proConfig = process.env.DATABASE_URL;
 
 // const proConfig = { 
 //   connectionSting: process.env.DATABASE_URL //heroku addon
@@ -77,6 +87,8 @@ const Author = devConfig.define('author', {
 Author.hasMany(Book);
 Book.belongsTo(Author);
 
+const proConfig = process.env.DATABASE_URL;
+
 // devConfig.sync({ force:true })
 // console.log("All models are syncronized successfully")
 
@@ -84,6 +96,9 @@ Book.belongsTo(Author);
 // process.env.DATABASE_URL
 
 x = 1;
-if(x == 1){
+if(process.env.NODE_ENV === "production"){
+  module.exports = proConfig;
+}
+else{
   module.exports = devConfig;
 }
