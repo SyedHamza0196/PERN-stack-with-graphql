@@ -1,0 +1,14 @@
+-- CREATE DATABASE gql_library;\
+
+CREATE TABLE author(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	age INTEGER NOT NULL
+);
+
+CREATE TABLE book(
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	genre VARCHAR(255) NOT NULL,
+	author_id INTEGER REFERENCES author(id)
+);
